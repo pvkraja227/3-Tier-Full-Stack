@@ -1,0 +1,88 @@
+pipeline { 
+    agent any
+
+       	
+    environment {
+        SONAR_HOME= tool 'sonar-scanner'
+    }
+    
+    tools {
+        nodejs 'node21'
+    }
+
+    stages {
+
+        
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/pvkraja227/3-Tier-Full-Stack.git'        
+            }
+        }
+        
+	stage('Install Package Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
+
+        stage('Tests') {
+            steps {
+                sh "npm test"
+            }
+        }
+        
+        stage('Trivy FS Scan') {
+            steps {
+                sh "trivy fs --format table -o fs.html ."
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+		withSonarQubeEnv('sonar') {
+                sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=App -Dsonar.projectKey=App"
+                }
+            }
+        }
+        
+        stage('Docker Build & Tag') {
+            steps {
+                script {
+                withDockerRegistry(credentialsId: 'docker-cred') {
+                
+                sh "docker build -t rajapvk23/app-3tier:latest ."    
+                }
+                }
+            }
+        }
+        
+        stage('Trivy Image Scan') {
+            steps {
+                sh "trivy image --format table -o image.html rajapvk23/app-3tier:latest"
+            }
+        }
+        
+        stage('Docker Push') {
+            steps {
+                script {
+                withDockerRegistry(credentialsId: 'docker-cred') {
+                
+                sh "docker push rajapvk23/app-3tier:latest"    
+                }
+                }
+            }
+        }
+	
+	stage('Docker Deploy to Dev') {
+            steps {
+                script {
+                withDockerRegistry(credentialsId: 'docker-cred') {
+                
+                sh "docker run -d -p 3000:3000 rajapvk23/app-3tier:latest"    
+                }
+                }
+            }
+        }
+        
+    }
+}
