@@ -5,12 +5,12 @@ metadata:
   name: yelp-camp-secrets
 type: Opaque
 data:
-  CLOUDINARY_CLOUD_NAME: dcuh8288h
-  CLOUDINARY_KEY: 448792691758224
-  CLOUDINARY_SECRET: XDC9VloBEF56vKdi1sVd0IPCjgM
-  MAPBOX_TOKEN: pk.eyJ1IjoicHZrcmFqYSIsImEiOiJjbTRkZmNmc2YwamVyMmtzYTdyNGs4aWhpIn0.dwgBYOuU_yYCxz9N0rkvJQ
-  DB_URL: "mongodb+srv://pvkraja:kWDeNWr5iG3rUPno@devops.j8ex0.mongodb.net/?retryWrites=true&w=majority&appName=devops"
-  SECRET: devops
+  CLOUDINARY_CLOUD_NAME: ZGN1aDgyODhoCg==
+  CLOUDINARY_KEY: NDQ4NzkyNjkxNzU4MjI0Cg==
+  CLOUDINARY_SECRET: WERDOVZsb0JFRjU2dktkaTFzVmQwSVBDamdNCg==
+  MAPBOX_TOKEN: cGsuZXlKMUlqb2ljSFpyY21GcVlTSXNJbUVpT2lKamJUUmtabU5tYzJZd2FtVnlNbXR6WVRkeU5HczRhV2hwSW4wLmR3Z0JZT3VVX3lZQ3h6OU4wcmt2SlEK
+  DB_URL: bW9uZ29kYitzcnY6Ly9wdmtyYWphOmtXRGVOV3I1aUczclVQbm9AZGV2b3BzLmo4ZXgwLm1vbmdvZGIubmV0Lz9yZXRyeVdyaXRlcz10cnVlJnc9bWFqb3JpdHkmYXBwTmFtZT1kZXZvcHMK
+  SECRET: ZGV2b3BzCg==
 
 ---
 apiVersion: apps/v1
