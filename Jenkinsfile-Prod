@@ -73,16 +73,22 @@ pipeline {
             }
         }
 	
-        stage('Docker Deploy to Dev') {
+        stage('Deploy To EKS') {
             steps {
-                script {
-                withDockerRegistry(credentialsId: 'docker-cred') {
-                
-                sh "docker run -d -p 3000:3000 rajapvk23/app-3tier:latest"    
-                }
-                }
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'my-eks22', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', serverUrl: 'https://007E019DA631264E8948F57DCBAF943E.gr7.ap-south-1.eks.amazonaws.com']]) {
+                sh "kubectl apply -f Manifests/"
+                sleep 10
+            }
             }
         }
         
+        stage('Verify the Deployment') {
+            steps {
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'my-eks22', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', serverUrl: 'https://007E019DA631264E8948F57DCBAF943E.gr7.ap-south-1.eks.amazonaws.com']]) {
+                    sh "kubectl get pods -n webapps"
+                    sh "kubectl get svc -n webapps"
+                }
+            }
+        }
     }
 }
