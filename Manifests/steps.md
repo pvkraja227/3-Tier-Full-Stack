@@ -1,8 +1,10 @@
 https://www.youtube.com/watch?v=Nclhs-pRidM
 3-Tier Ultimate DevOps CICD Pipeline Project | DevOps Project
 
-App: container/cloud
+App: container OR cloud
 DB: MongoDB
+
+Adv's AND Disadv's:
 
 Container: 
 
