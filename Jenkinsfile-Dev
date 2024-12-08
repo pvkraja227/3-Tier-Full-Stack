@@ -19,7 +19,7 @@ pipeline {
             }
         }
         
-	stage('Install Package Dependencies') {
+	    stage('Install Package Dependencies') {
             steps {
                 sh "npm install"
             }
@@ -73,7 +73,7 @@ pipeline {
             }
         }
 	
-	stage('Docker Deploy to Dev') {
+        stage('Docker Deploy to Dev') {
             steps {
                 script {
                 withDockerRegistry(credentialsId: 'docker-cred') {
